@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elixir Poem Generator</title>
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            background-color: #f0f0f0;
+            margin: 50px;
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        #poem {
+            font-size: 18px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Elixir Poem Generator</h1>
+    <p id="poem"></p>
+    <script>
+        const words = {
+            nouns: ["Elixir", "process", "function", "module", "pipeline", "variable", "pattern"],
+            verbs: ["flows", "executes", "transforms", "scales", "compiles", "matches", "binds"],
+            adjectives: ["dynamic", "functional", "concurrent", "efficient", "robust", "immutable", "elegant"],
+            adverbs: ["elegantly", "swiftly", "reliably", "concurrently", "smoothly", "silently", "steadily"],
+            prepositions: ["within", "through", "across", "among", "inside", "over", "under"]
+        };
+
+        function getRandomWord(type) {
+            const wordArray = words[type];
+            return wordArray[Math.floor(Math.random() * wordArray.length)];
+        }
+
+        function generateLine() {
+            const structures = [
+                `The ${getRandomWord('nouns')} ${getRandomWord('adverbs')} ${getRandomWord('verbs')}.`,
+                `${getRandomWord('adverbs').charAt(0).toUpperCase() + getRandomWord('adverbs').slice(1)}, the ${getRandomWord('nouns')} ${getRandomWord('verbs')}.`,
+                `${getRandomWord('adjectives').charAt(0).toUpperCase() + getRandomWord('adjectives').slice(1)} ${getRandomWord('nouns')} ${getRandomWord('verbs')} ${getRandomWord('prepositions')} the code.`,
+                `A ${getRandomWord('nouns')} ${getRandomWord('verbs')} ${getRandomWord('prepositions')} ${getRandomWord('adjectives')} ${getRandomWord('nouns')}.`
+            ];
+            return structures[Math.floor(Math.random() * structures.length)];
+        }
+
+        function generatePoem() {
+            let poem = "";
+            for (let i = 0; i < 20; i++) {
+                poem += generateLine() + "<br>";
+            }
+            return poem;
+        }
+
+        function displayPoem() {
+            document.getElementById("poem").innerHTML = generatePoem();
+            setTimeout(displayPoem, 5000);
+        }
+
+        displayPoem();
+    </script>
+</body>
+</html>

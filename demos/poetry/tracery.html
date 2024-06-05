@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Pipe Dream</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Describe the work here.">
+	<meta name="keywords" content="Enter a comma separated list of keywords for search engines to find your work.">
+	<meta name="author" content="James Smith">
+<!--
+Tracery to HTML Template
+
+Copyright 2023 Leonardo Flores
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<!-- 
+Enter credits or author's statement here.
+-->
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: white;
+    }
+    
+    #title-container {
+        width: 100%;
+        text-align: center;
+        max-height: 300px;
+		font-size: 4em;
+    }
+    
+    @media (max-width: 600px) {
+        #title-container {
+            max-height: 200px;
+        }
+        
+        #text-container {
+            width: 100%;
+        }
+    }
+    
+    #text-container {
+        text-align: left;
+        font-size: 1.5em;
+        margin: auto; /* Center horizontally and vertically */
+        border: 0px solid black; /* Change 0px to your desired border thickness, if desired */
+        padding: 10px;
+        width: 75%;
+        font-family: MesloLGS, monospace;
+
+    }
+
+    /* CSS for buttons and modal */
+    #button-container {
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        width: 100%;
+    }
+    
+    .button {
+        margin: 10px;
+        font-size: 2em;
+    }
+	
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+        font-size: 2.5em;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+</style>
+    </head>
+    <body data-new-gr-c-s-check-loaded="8.912.0" data-gr-ext-installed="">
+		<div id="title-container">Pipe Dream</div>
+
+        <div id="text-container">This is a generated text about....</div>
+
+        <div id="button-container">
+            <button class="button" onclick="displayAbout()">About</button>
+            <button class="button" onclick="displayString()">Regenerate</button>
+        </div>
+
+        <div id="myModal" class="modal">
+            <!-- Replace the statement below with your own artistic statement. -->
+            <div class="modal-content">
+                <span class="close">×</span>
+                <p>
+                    This text generator creates simple sentences that are vaguely similar to Elixir code, but with natural language,
+                    It's intended to almost read as sensible given some semantics based on programming languages.
+                </p>
+            </div>
+        </div>
+    <script> /* In the var immediately below, copy-paste your Tracery/CBDQ JSON between the {} brackets */
+    var obj = {
+    "origin": [
+        "#expression#<br>#body#",
+    ],
+    "body": [
+        "|> #expression#<br>#body#",
+        "<br>#expression#<br>#body#",
+        ""
+    ],
+    "expression": [
+        "#pure-expression#",
+        "not #pure-expression#",
+    ],
+    "pure-expression": [
+        "#name# #operation# #target#",
+    ],
+    "operation": ["sends", "recieves", "drops", "pops", "pushes", "takes", "gives"],
+    "name": ["alice", "bob", "cheryl", "david", "elisa", "fred"],
+    "target": ["message", "data", "value", "#name#", "(#expression#)"],
+    "this": ["foo", "bar", "baz"],
+    "that": ["n", "i", "j", "k"],
+    "topic": ["about your #family#", "about your #symptom#", "about your #pet#"],
+    "family": ["mother", "father", "son", "daughter", "child"],
+    "symptom": ["cough", "fever", "allergies"],
+    "pet": ["dog", "cat", "gerbil", "lizard"]
+};
+
+function generateString(template) {
+    let placeholder = template.match(/#([^#]+)#/);
+    while (placeholder) {
+        let [fullMatch, key] = placeholder;
+        let choices = obj[key];
+        if (!choices) {
+            throw new Error(`No choices for key '${key}'`);
+        }
+        let choice = choices[Math.floor(Math.random() * choices.length)];
+        template = template.replace(fullMatch, generateString(choice));
+        placeholder = template.match(/#([^#]+)#/);
+    }
+    return template;
+}
+
+function displayString() {
+    var randomIndex = Math.floor(Math.random() * obj.origin.length);
+    document.getElementById('text-container').innerHTML = generateString(obj.origin[randomIndex]);
+}
+
+    displayString();  // call once at the beginning
+    setInterval(displayString, 30000);  // call every 30 seconds
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            // Function to display the about modal
+            function displayAbout() {
+                modal.style.display = "block";
+            }
+		    function goFullscreen() {
+                return;
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+            document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+            document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+            document.documentElement.msRequestFullscreen();
+        }
+    }
+
+    document.onclick = goFullscreen;
+</script>
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<!--
+
+Nick Montfort
+ Original Python program:
+ 8 January 2009, Taroko Gorge National Park, Taiwan and Eva Air Flight 28
+ This JavaScript version, with links:
+ 1 March 2016
+
+Copyright (c) 2009-2016 Nick Montfort <nickm@nickm.com>
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
+IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+-->
+<style type="text/css">
+/* <![CDATA[ */
+body {
+ background: #1f1f1f;
+ color: #efefef;
+ margin: 0 24pt 0 24pt;
+ font-family: Optima, sans-serif;
+ font-size: 13pt;
+}
+#main{
+  font-family: MesloLGS, monospace;
+
+}
+div {
+ height: 16pt;
+}
+a {
+ color: #bdbfae;
+ text-decoration: none;
+}
+/* ]]> */
+</style>
+<script type="text/javascript">
+var t=0;
+var n=0;
+var paths=0;
+var above='alice,bob,cheryl,daryl,elm,fred,george,harry,irene,jesse,kathy,luis,jarred,kevin,louise,mike,nancy,oral'.split(',');
+var below='argyle,brown,chartruse,dark,message,input,output,quotes,unquotes'.split(',');
+var trans='times,divides,multiplies,adds,subtracts,modulates,sends,recieves'.split(',');
+var imper='def,alias,use,require,import,defp,defmacro,def,@impl,@behavior,@typedef';
+imper=imper.split(',');
+var intrans='does,ends,sends,prints'.split(',');
+var s='?,!,,'.split(',');
+var texture='private,,'.split(',');
+function rand_range(max) {
+ return Math.floor(Math.random()*(max+1));
+}
+function choose(array) {
+ return array[rand_range(array.length-1)];
+}
+function path() {
+ var p=rand_range(1);
+ var words=choose(above);
+ if ((words=='fred')&&(rand_range(3)==1)) {
+  words='engineers '+choose(trans);
+ } else {
+  words+=' '+choose(trans);
+ }
+ words+=' '+choose(below)+choose(s);
+ return words;
+}
+function site() {
+ var words='';
+ if (rand_range(2)==1) {
+  words+=choose(above);
+ } else {
+  words+=choose(below);
+ }
+ words+=' '+choose(intrans);
+ return words;
+}
+function cave() {
+ var adjs=('only,'+choose(texture)+',except,some,as').split(',');
+ var target=1+rand_range(3);
+ while (adjs.length>target) {
+  adjs.splice(rand_range(adjs.length),1);
+  }
+ var words='\u00a0\u00a0'+choose(imper)+' '+adjs.join(' '); //+' \u2014';
+ adjs.pop();
+ while(words.endsWith(" as")) {
+  words += ' '+choose(adjs);
+ }
+ return words;
+}
+function do_line() {
+ var main=document.getElementById('main');
+ if (t<=40) {
+  t+=1;
+ } else {
+  main.removeChild(document.getElementById('main').firstChild);
+ }
+ if (n===0) {
+  text=' ';
+ } else if (n==1) {
+  paths=2+rand_range(2);
+  text=path();
+ } else if (n<paths) {
+  text='|> ' + site();
+ } else if (n==paths) {
+  text='|> ' + path();
+ } else if (n==paths+1) {
+  text=' ';
+ } else if (n==paths+2) {
+  text=cave();
+ } else {
+  text=' ';
+  n=0;
+ }
+ n+=1;
+ text=text.substring(0,1).toUpperCase()+text.substring(1,text.length);
+ last=document.createElement('div');
+ last.appendChild(document.createTextNode(text));
+ main.appendChild(last);
+}
+function poem() {
+ setInterval(do_line, 1200);
+}
+</script>
+  <title>Pipe Dream</title>
+</head>
+<body onload="poem()" data-new-gr-c-s-check-loaded="8.912.0" data-gr-ext-installed="">
+<div style="float:right; margin-top:12px; color:#0b3; height:60pt">
+<div>Pipe Dream - 2024-06-05</div>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/original.html">Nick Montfort</a></del><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/tokyo_garage/">Scott Rettberg</a></del> <a href="http://retts.net/tokyogarage.html">[SR]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/gorge/">J.R. Carpenter</a></del> <a href="http://luckysoap.com/generations/gorge.html">[JRC]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/whisper_wire/">J.R. Carpenter</a></del> <a href="http://luckysoap.com/generations/whisperwire.html">[JRC]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/along_the_briny_beach/">J.R. Carpenter</a></del> <a href="http://luckysoap.com/alongthebrinybeach/">[JRC]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/toy_garbage/">Talan Memmott</a></del> <a href="http://talanmemmott.info/ex/websupplement/toygarbage/index.html">[TM]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/yoko_engorged/">Eric Snodgrass</a></del> <a href="http://exinfoam.wordpress.com/2011/07/18/yoko-engorged/">[ES]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/takei_george/">Mark Sample</a></del> <a href="http://samplereality.com/elit/takeigeorge.html">[MS]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/alone_engaged/">Maria Engberg</a></del> <a href="http://polyaesthetics.org/AloneEngaged.html">[ME]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/fred_and_george/">Flourish Klink</a></del> <a href="http://www.madelineklink.com/portfolio/fredandgeorge.html">[FK]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/argot_ogre_ok/">Andrew Plotkin</a></del> <a href="http://www.eblong.com/zarf/argot-ogre-ok.html">[AP]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/designer_gulch/">Brendan Howell</a></del> <a href="http://wintermute.org/brendan/?p=designer-gulch">[BH]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/inside_the_house/">Adam Sylvain</a></del> <a href="http://mason.gmu.edu/~asylvain/">[AS]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/taroko_gary/">Leonardo Flores</a></del> <a href="http://academic.uprm.edu/flores/TarokoGary.html">[LF]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/snowball/">Alireza Mahzoon</a></del> <a href="http://alimahzoon.com/html/mp2ab/final2.html">[AM]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/camel_tail/">Sonny Rae Tempest</a></del> <a href="http://thefwordsrt.appspot.com/cameltail.html">[SRT]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/tournedo_gorge/">Kathi Inman Berens</a></del> <a href="http://berens.org/kib/elit/tournedo2.html">[KIB]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/tasty_gougere/">Helen Burgess</a></del> <a href="http://helenburgess.com/cheese/index.html">[HB]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/scholars_contemplate_the_irish_beer/">Judy Malloy</a></del> <a href="http://www.artcalifornia.net/scholars_contemplate.html">[JM]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/dark_side_of_the_wall/">Bob Bonsall</a></del> <a href="http://mason.gmu.edu/~rbonsal1/DarkSideoftheWall.html">[BB]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/tacoma_grunge/">Chuck Rybak</a></del> <a href="http://www.sadiron.com/tacoma-grunge/">[CR]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/pigeon_forge/">Zach Whalen</a></del> <a href="http://zachwhalen.net/pg/forge/forge.html">[ZW]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/transmogrify/">Leonardo Flores</a></del> <a href="http://springgunpress.com/leonardoflores/transmogrify">[LF]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/take_ogre/">John Pat McNamara</a></del> <a href="http://www.digitalvitalism.com/take_ogre.html">[JPM]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/wandering_through_taroko_gorge/">James T. Burling</a></del> <a href="http://www.burling.org/jtburling/Wandering.html">[JTB]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/wawoz_taroko/">Piotr Marecki &amp;<br>Aleksandra Małecka</a></del> <a href="http://ha.art.pl/nick_montfort/wawoz_taroko.html">[PM&amp;AM]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/hey_gorgeous/">Darius Kazemi</a></del> <a href="http://tinysubversions.com/stuff/gorge/">[DK]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/54_61_72_6f_6b_6f/">Roman Kalinovski</a></del> <a href="http://www.romankalinovski.com/#/digital-projects/">[RK]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/take_gonzo/">Anders Gonzo Gaard</a></del> <a href="http://www.kardemommepartiet.no/">[AGG]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/wawoz_krakow/">Piotr Marecki</a></del> <a href="http://ha.art.pl/nick_montfort/wawoz_taroko.html">[PM]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/garaz_w_tokio/">Scott Rettberg &amp;<br>Mariusz Pisarski</a></del> <a href="http://techsty.art.pl/m10/garaz_tokio.html">[SR&amp;MP]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/oko_na_donbas/">Mariusz Pisarski</a></del> <a href="http://techsty.art.pl/m10/oko_na_donbas.html">[MP]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/karaoke_mirage/">Robert Fletcher</a></del> <a href="http://digitaliteracies.net/Karaoke_Mirage.html">[BF]</a><br>
+<del><a href="https://collection.eliterature.org/3/works/taroko-gorge/ok_artgoer_go/">Stuart Moulthrop</a></del> <a href="http://pantherfile.uwm.edu/moulthro/hypertexts/myGorge/">[SM]</a><br>
+<del><a href="http://nickm.com/">Nick Montfort · 2016-03-01</a></del> <a href="https://collection.eliterature.org/3/works/taroko-gorge/taroko-gorge.html">[NM]</a><br>
+<a href="https://github.com/jgsmith">James Smith</a>
+</div>
+<div id="main"></div>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
