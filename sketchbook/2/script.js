@@ -3,6 +3,9 @@
 - what is the game played with sheep and tea cups?
 - use p5js to create a game of sheep and tea cups
 
+How to Play:
+- Click on the canvas to place tea cups.
+- The sheep will move around randomly, and if they collide with a tea cup, the tea cup will be knocked over.
 */
 let teaCups = [];
 let sheep = [];
